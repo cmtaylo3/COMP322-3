@@ -15,4 +15,17 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: setup node
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version-file: .node-version
+          cache: 'npm'
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: lint
+        run: |
+          npm run format-check
+          npm run lint
       - run: echo "🍏 This job's status is ${{ job.status }}."
